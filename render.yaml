@@ -2,7 +2,7 @@
 # En Render: New + -> Blueprint -> conecta este repo -> Apply. Render lee este archivo.
 services:
   - type: web
-    name: radar-cripto
+    name: crypto-news-radar
     runtime: node
     plan: free
     buildCommand: npm install
