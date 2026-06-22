@@ -1,0 +1,14 @@
+# Configuracion de despliegue para Render.com (plan gratis, subdominio *.onrender.com).
+# En Render: New + -> Blueprint -> conecta este repo -> Apply. Render lee este archivo.
+services:
+  - type: web
+    name: crypto-news-radar
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: NODE_VERSION
+        value: "22"

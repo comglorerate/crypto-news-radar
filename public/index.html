@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🛰️ Crypto News Radar</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛰️</text></svg>" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo">🛰️</span>
+      <div>
+        <h1>CRYPTO RADAR</h1>
+        <span class="subtitle">Análisis fundamental · tiempo real</span>
+      </div>
+    </div>
+
+    <div class="status">
+      <div class="clock">
+        <span id="ny-time">--:--:--</span>
+        <span class="tz">NY</span>
+      </div>
+      <div class="conn" id="conn">
+        <span class="dot"></span><span id="conn-text">conectando…</span>
+      </div>
+    </div>
+
+    <div class="controls">
+      <button id="btn-lang" class="toggle" title="Idioma de las noticias">🌐 ES</button>
+      <button id="btn-sound" class="toggle" title="Alerta sonora en noticias de alto impacto">🔔 Sonido</button>
+      <button id="btn-notif" class="toggle" title="Notificación de escritorio">🖥️ Avisos</button>
+      <button id="btn-onlyhigh" class="toggle" title="Mostrar solo alto impacto">🔴 Solo ALTO</button>
+    </div>
+  </header>
+
+  <div class="layout">
+    <!-- Panel lateral -->
+    <aside class="sidebar">
+      <section class="card cal-card">
+        <h3>📅 Próximos eventos macro</h3>
+        <div id="cal-list" class="cal-list"><div class="hint">cargando…</div></div>
+      </section>
+
+      <section class="card gauge-card">
+        <h3>Fear &amp; Greed</h3>
+        <div class="gauge">
+          <div class="gauge-value" id="fng-value">--</div>
+          <div class="gauge-label" id="fng-label">cargando…</div>
+        </div>
+        <div class="gauge-bar"><div class="gauge-fill" id="fng-fill"></div></div>
+      </section>
+
+      <section class="card">
+        <h3>Filtrar por categoría</h3>
+        <div class="cat-filters" id="cat-filters">
+          <button class="cat active" data-cat="all">Todo</button>
+          <button class="cat" data-cat="politica">🏛️ Trump</button>
+          <button class="cat" data-cat="regulacion">⚖️ Regulación</button>
+          <button class="cat" data-cat="etf">🏦 ETF</button>
+          <button class="cat" data-cat="macro">🌍 Macro</button>
+          <button class="cat" data-cat="exchange">🔄 Exchange</button>
+          <button class="cat" data-cat="hack">🚨 Hack</button>
+          <button class="cat" data-cat="stablecoin">💵 Stable</button>
+        </div>
+      </section>
+
+      <section class="card">
+        <h3>Mi watchlist</h3>
+        <p class="hint">Resalta noticias que mencionen tus monedas/términos (separados por coma).</p>
+        <input id="watchlist" type="text" placeholder="btc, solana, ethereum, ripple…" />
+      </section>
+
+      <section class="card stats">
+        <h3>Hoy</h3>
+        <div class="stat-row"><span>🔴 Alto impacto</span><b id="stat-alto">0</b></div>
+        <div class="stat-row"><span>🟡 Medio</span><b id="stat-medio">0</b></div>
+        <div class="stat-row"><span>Total recibidas</span><b id="stat-total">0</b></div>
+      </section>
+
+      <footer class="side-foot">
+        Fuentes: Trump · CoinDesk · Cointelegraph · Decrypt · The Block · Binance · F&amp;G
+      </footer>
+    </aside>
+
+    <!-- Feed principal -->
+    <main class="feed-wrap">
+      <div class="feed-head">
+        <div class="search">
+          <input id="search" type="text" placeholder="🔎 Buscar en el feed…" />
+        </div>
+        <button id="btn-clear-read" class="mini">Marcar todo leído</button>
+      </div>
+      <div id="feed" class="feed">
+        <div class="empty" id="empty">Esperando noticias… el radar está escuchando 🛰️</div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Banner de alerta de alto impacto -->
+  <div id="alert-banner" class="alert-banner hidden">
+    <span class="ab-icon">🔴</span>
+    <span class="ab-text" id="ab-text"></span>
+    <button class="ab-close" id="ab-close">×</button>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

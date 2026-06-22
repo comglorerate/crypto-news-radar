@@ -1,0 +1,17 @@
+{
+  "name": "crypto-news-radar",
+  "version": "1.0.0",
+  "description": "Radar de analisis fundamental en tiempo real para criptomonedas",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "rss-parser": "^3.13.0"
+  }
+}
