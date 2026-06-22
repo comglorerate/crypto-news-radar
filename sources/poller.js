@@ -52,6 +52,7 @@ async function pollFeed(feed) {
       const item = normalize(feed, entry);
       if (!item.title || item.title.length < 4) continue;
       const cls = classify(item);
+      if (cls.drop) continue; // cuenta rastreada sin relacion con el mercado
       const added = add({
         ...item,
         ...cls,
