@@ -15,6 +15,11 @@ Luego abre http://localhost:4000 — o haz doble clic en **`Abrir Radar.bat`**.
 ## Qué hace
 
 - **Feed en vivo** vía Server-Sent Events: las noticias aparecen solas, sin recargar.
+- **Ticker BTC/ETH/SOL en vivo** en la cabecera (WebSocket de Binance; si tu red lo bloquea, cae solo a CoinGecko vía el servidor).
+- **🚨 Detector de velones**: si BTC se mueve ≥0.8% en 5 minutos, suena la alerta aunque no haya salido ninguna noticia todavía (cooldown 10 min).
+- **Agrupación de duplicados**: la misma historia en varios medios = una sola tarjeta con chip "🔁 N fuentes" (y una sola alerta), por similitud de titulares.
+- **📊 Pulso 24h**: qué narrativa domina hoy (top categorías + nº de noticias de alto impacto).
+- **Contador en la pestaña**: si estás en otra pestaña, el título muestra `(N🔴)` con los altos impactos sin ver.
 - **Motor de impacto** 🔴ALTO / 🟡MEDIO / ⚪BAJO por categorías: Regulación, ETF/Flujos, Macro/Fed, Trump/Política, Exchange/Listing, Hack, Stablecoin, Adopción, Ballenas.
 - **Idioma ES/EN** (botón 🌐): traduce las noticias al español en vivo (Google Translate gratis, sin key). Por defecto en español.
 - **📅 Calendario macro**: próximos eventos de alto impacto (FOMC, CPI, Empleo) con hora exacta de NY y **cuenta atrás**. Avisa 15 min antes y cuando se publica.

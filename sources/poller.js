@@ -43,10 +43,9 @@ function normalize(feed, entry) {
   };
 }
 
-async function pollFeed(feed) {
+async function pollFeed(feed, firstRun) {
   try {
     const res = await parser.parseURL(feed.url);
-    const firstRun = isFirstRun();
     let nuevos = 0;
     for (const entry of (res.items || []).slice(0, 25)) {
       const item = normalize(feed, entry);
@@ -68,7 +67,11 @@ async function pollFeed(feed) {
 }
 
 export async function pollAll() {
-  await Promise.all(FEEDS.map(pollFeed));
+  // firstRun se decide UNA vez, antes de lanzar los feeds en paralelo:
+  // si no, el primer feed que resuelve pone items>0 y el backlog de los otros
+  // 15 feeds entraria como "en vivo" (tormenta de alertas en cada arranque).
+  const firstRun = isFirstRun();
+  await Promise.all(FEEDS.map((f) => pollFeed(f, firstRun)));
 }
 
 export function startPolling(intervalMs = 60000) {
