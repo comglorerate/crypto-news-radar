@@ -1,0 +1,22 @@
+# Auto-deploy a Render en cada push a main.
+# El webhook nativo GitHub->Render de este servicio nunca funciono (verificado:
+# ningun push desde la creacion disparo sync/deploy), asi que usamos el Deploy
+# Hook oficial de Render via GitHub Actions. El hook vive como secret cifrado
+# del repo (RENDER_DEPLOY_HOOK); para invalidarlo: Render -> Settings ->
+# Regenerate hook (y actualizar el secret con `gh secret set`).
+name: Deploy a Render
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Disparar deploy en Render
+        env:
+          RENDER_DEPLOY_HOOK: ${{ secrets.RENDER_DEPLOY_HOOK }}
+        run: |
+          curl -fsS "$RENDER_DEPLOY_HOOK" > /dev/null
+          echo "Deploy disparado en Render ✅"
