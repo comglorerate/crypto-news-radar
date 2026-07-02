@@ -275,7 +275,19 @@ function canNotify() {
 
 function notify(item) {
   if (!canNotify()) return;
-  new Notification("🔴 Alto impacto — " + item.source, { body: item.title.slice(0, 160) });
+  const n = new Notification("🔴 Alto impacto — " + item.source, { body: item.title.slice(0, 160) });
+  // Clic en la notificacion: trae la pestaña al frente y resalta la noticia
+  n.onclick = () => {
+    window.focus();
+    n.close();
+    const el = feedEl.querySelector(`.news[data-id="${CSS.escape(item.id)}"]`);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "center" });
+      el.classList.remove("flash");
+      void el.offsetWidth;            // reinicia la animacion
+      el.classList.add("flash");
+    }
+  };
 }
 
 /* Contador de ALTO no vistos en el titulo de la pestaña (cuando estas en otra) */
@@ -476,7 +488,8 @@ function checkVelon(p, now) {
   beep(true);
   showBanner({ source: "🚨 Velón BTC", title: `BTC ${dir} ${pct.toFixed(1)}% en ${mins} min — revisa el feed y tu gráfico` });
   if (canNotify()) {
-    new Notification("🚨 Velón en BTC", { body: `BTC ${dir} ${pct.toFixed(1)}% en ${mins} min` });
+    const n = new Notification("🚨 Velón en BTC", { body: `BTC ${dir} ${pct.toFixed(1)}% en ${mins} min` });
+    n.onclick = () => { window.focus(); n.close(); };
   }
 }
 
@@ -603,8 +616,10 @@ function checkCalAlerts() {
       calAlerted.add(e.id + ":15"); save("calAlerted", [...calAlerted]);
       beep(true);
       showBanner({ source: "📅 Evento macro", title: `${e.title} en ~15 min (${nyDateTime(ts)} NY)` });
-      if (canNotify())
-        new Notification("📅 Evento macro inminente", { body: `${e.title} en ~15 min` });
+      if (canNotify()) {
+        const n = new Notification("📅 Evento macro inminente", { body: `${e.title} en ~15 min` });
+        n.onclick = () => { window.focus(); n.close(); };
+      }
     }
     if (diff <= 0 && diff > -120000 && !calAlerted.has(e.id + ":0")) {
       calAlerted.add(e.id + ":0"); save("calAlerted", [...calAlerted]);
